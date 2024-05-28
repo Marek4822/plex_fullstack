@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+  </head>
+  <body>
+    <h1>View page</h1>
+    <a href="/">Main</a>
+
+    <form method="POST">
+      <p>
+        <label for="folders">View folders:</label>
+        <input
+          id="folders"
+          required
+          name="option"
+          type="radio"
+          value="folders"
+        />
+      </p>
+      <p>
+        <label for="files">View files:</label>
+        <input id="files" required name="option" type="radio" value="files" />
+
+        <select id="playlist" name="playlist">
+          {% for element in select_list %}
+          <option value="{{ element }}">{{ element }}</option>
+          {% endfor %}
+        </select>
+      </p>
+      <button type="submit">View</button>
+    </form>
+    {% if count_dir %}
+    <p>Total: {{ count_dir }}</p>
+    {% for dir in dir_list %}
+    <p>{{ dir }}</p>
+    {% endfor %} {% endif %}
+    <!-- ############# FILES ##################### -->
+
+    {% if count_file %}
+    <p>Total: {{ count_file }}</p>
+
+    {% for file in file_list %}
+    <p>{{ file }}</p>
+    {% endfor %} {% endif %}
+  </body>
+</html>

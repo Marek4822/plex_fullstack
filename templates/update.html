@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      <span class="closebtn" onclick="this.parentElement.style.display='none';"
+        >&times;</span
+      >
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <h1>Update plex playlist</h1>
+    <div class="content">
+      <form method="POST">
+        <p>
+          <label for="playlist_id">Playlist ID</label>
+        </p>
+        <p>
+          <input type="text" name="playlist_id" />
+        </p>
+        <p>
+          <label for="dir_name">Folder name</label>
+        </p>
+        <input type="text" name="dir_name" />
+        <br />
+        <button type="submit">Update</button>
+      </form>
+    </div>
+    <a href="/">Main</a>
+  </body>
+</html>
