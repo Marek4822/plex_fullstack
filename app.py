@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from cred import flask_secret_key
 from update import *
+from update_v2 import *
+
 from view import *
 
 
@@ -27,6 +29,21 @@ def update():
 
     return render_template('update.html')
 
+@app.route("/update_v2", methods=['GET', 'POST'])
+def update_v2s():
+    if request.method == 'POST':
+        playlist_link = request.form['playlist_link']
+
+        if playlist_link:
+            # todo add link validation
+            update_app(playlist_link)
+            flash('Playlist updated!', 'success')
+            print(playlist_link)
+        else:
+            flash('Error: input is empty', 'error')
+
+    return render_template('update_v2.html')
+
 @app.route("/view", methods=['GET', 'POST'])
 def view():
     select_list, count_dir = view_dir()
@@ -51,4 +68,6 @@ def view():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=2137)
+    app.run(host='100.65.205.50', debug=False, port=2137)
+    # app.run(host='192.168.1.19', debug=True, port=2137)
+

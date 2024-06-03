@@ -20,19 +20,18 @@
     </ul>
     {% endif %} {% endwith %}
 
-    <h1>Update plex playlist</h1>
+    <h1>Update_v2 plex playlist</h1>
+
     <div class="content">
       <form method="POST">
-        <label for="playlist_id">Playlist ID:</label>
+        <label for="playlist_id">Playlist link:</label>
 
-        <input type="text" name="playlist_id" />
+        <input type="text" name="playlist_link" />
 
-        <label for="dir_name">Folder name:</label>
-        <input type="text" name="dir_name" />
-        <br />
         <button type="submit" onclick="loading();">Update</button>
       </form>
     </div>
+
     <div class="links">
       <br /><br />
       <a class="link" href="/">Home</a>

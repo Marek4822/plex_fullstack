@@ -9,7 +9,6 @@
   </head>
   <body>
     <h1>View page</h1>
-    <a href="/">Main</a>
 
     <form method="POST">
       <p>
@@ -34,6 +33,12 @@
       </p>
       <button type="submit">View</button>
     </form>
+
+  </div>
+  <div class="links">
+    <br /><br />
+    <a class="link" href="/">Home</a>
+  </div>
     {% if count_dir %}
     <p>Total: {{ count_dir }}</p>
     {% for dir in dir_list %}
