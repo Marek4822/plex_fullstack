@@ -4,7 +4,40 @@ import re
 from cred import api_key
 
 
-def update_app(playlist_id, dir_name):
+def update_app(playlist_link):
+
+    def extract_id(playlist_link):
+
+        pattern = r'(?:list=)([a-zA-Z0-9_-]+)'
+        match = re.search(pattern, playlist_link)
+
+        if match:
+            return match.group(1)
+        else:
+            return None
+        
+
+        
+    def playlist_name(playlist_id):
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        request = youtube.playlists().list(
+        part="snippet",
+        id=playlist_id)
+
+        response = request.execute()
+
+        data_name = response['items'][0]['snippet']['title']
+
+        return data_name
+    
+
+    def format_name(data_name):
+        data_name = data_name.replace(" ", "-")
+
+        return data_name
+
+
+
     def create_dir(playlists_path):
         if not os.path.exists(playlists_path):
             print('Couldnt find a directory, Creating new one')
@@ -104,13 +137,24 @@ def update_app(playlist_id, dir_name):
         
 
     def main():
-        default_destination = '/home/plex_music/playlists/' # Default destination
-        playlists_path = f'{default_destination}{dir_name}'
+
         # playlists_id = 'PLpid-WNSSQAs01HGVMHSIu0molIRvsjGO'           # playlist id you want to download
         # playlists_path = '/home/marek/python/py_playlist/bangiers'    # place where u store files, destination where files will be saved
                                                                         # only files will be downloaded if there is a difference 
                                                                         # between playlist on yt(playlist_id) and files in your file dir(playlist_path)
+
+        
+
+        playlist_id = extract_id(playlist_link)
+
+        data_name = playlist_name(playlist_id)
+
+        dir_name = format_name(data_name)
+
         youtube = build('youtube', 'v3', developerKey=api_key)
+
+        default_destination = '/home/plex_music/playlists/' # Default destination
+        playlists_path = f'{default_destination}{dir_name}'
         create_dir(playlists_path)
 
         count = 0
@@ -124,10 +168,10 @@ def update_app(playlist_id, dir_name):
                 download(playlists_path)
                 count += 1
                 print(f'RETRIES: {count}')
+            else:
                 retries = False
                 
     main()
-
 
 
 # yt-dlp --skip-unavailable-fragments --ignore-errors --continue -R 10 -f 140 -i -a diff_urls.txt

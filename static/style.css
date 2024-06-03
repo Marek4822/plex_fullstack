@@ -82,6 +82,10 @@ input[type="text"]:focus {
   padding: 0;
   margin: 20px 0;
   width: 90%;
+  animation-name: opacity;
+  animation-duration: 2000ms;
+  animation-fill-mode: forwards;
+
 }
 
 .flashes li {
@@ -131,11 +135,41 @@ input[type="text"]:focus {
   margin: 50px;
 }
 
+
+select {
+  background-color: #eee3ab;
+  border: none; 
+  padding: 10px;
+  border-radius: 5px; 
+  cursor: pointer;
+  font-size: 20px;
+  width: 210px; 
+}
+
+select option {
+  text-align: center;
+  padding: 10px; 
+}
+
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes opacity{
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    display: none;
+    opacity: 0;
   }
 }

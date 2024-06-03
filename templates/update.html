@@ -21,28 +21,22 @@
     {% endif %} {% endwith %}
 
     <h1>Update plex playlist</h1>
+
     <div class="content">
       <form method="POST">
-        <label for="playlist_id">Playlist ID:</label>
+        <label for="playlist_id">Playlist link:</label>
 
-        <input type="text" name="playlist_id" />
+        <input type="text" name="playlist_link" />
 
-        <label for="dir_name">Folder name:</label>
-        <input type="text" name="dir_name" />
-        <br />
         <button type="submit" onclick="loading();">Update</button>
       </form>
     </div>
+
     <div class="links">
       <br /><br />
       <a class="link" href="/">Home</a>
     </div>
     <div class="loader"></div>
-    <script type="text/javascript">
-      function loading() {
-        document.querySelector(".loader").style.display = "flex";
-        document.querySelector(".content").style.display = "none";
-      }
-    </script>
+    <script type="text/javascript" src="static/loading.js"></script>
   </body>
 </html>

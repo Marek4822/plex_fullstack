@@ -8,49 +8,69 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
   </head>
   <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+
+
     <h1>View page</h1>
-
+<div class="view">
     <form method="POST">
-      <p>
-        <label for="folders">View folders:</label>
-        <input
-          id="folders"
-          required
-          name="option"
-          type="radio"
-          value="folders"
-        />
-      </p>
-      <p>
-        <label for="files">View files:</label>
-        <input id="files" required name="option" type="radio" value="files" />
 
+      <p>
+        <label for="files">View Playlists:</label>
         <select id="playlist" name="playlist">
+          <option value="" >Select your option</option>
           {% for element in select_list %}
+
           <option value="{{ element }}">{{ element }}</option>
           {% endfor %}
         </select>
       </p>
+      <p><label for="files">Total playlists: {{ count_dir }}</label></p>
+      
       <button type="submit">View</button>
     </form>
+
+
 
   </div>
   <div class="links">
     <br /><br />
     <a class="link" href="/">Home</a>
   </div>
-    {% if count_dir %}
+
+  {% if count_file %}
+  <p>Total songs: {{ count_file }}</p>
+  {% endif %}
+
+  {% for file_name in file_list %}
+  <p>{{ file_name }}</p>
+  {% endfor %}
+</div>
+
+
+
+    <!-- {% if count_dir %}
     <p>Total: {{ count_dir }}</p>
     {% for dir in dir_list %}
     <p>{{ dir }}</p>
-    {% endfor %} {% endif %}
+    {% endfor %} {% endif %} -->
     <!-- ############# FILES ##################### -->
-
+<!-- 
     {% if count_file %}
     <p>Total: {{ count_file }}</p>
 
     {% for file in file_list %}
     <p>{{ file }}</p>
-    {% endfor %} {% endif %}
+    {% endfor %} {% endif %} -->
   </body>
 </html>

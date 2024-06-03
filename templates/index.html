@@ -8,15 +8,29 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
   </head>
   <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
     <h1>Plex Management Server</h1>
     <div class="links">
+      <!-- <a class="link" href="/update_old">Update</a> -->
+      <br />
       <a class="link" href="/update">Update</a>
       <br />
-      <a class="link" href="/update_v2">Update_v2</a>
+      <a class="link" href="/update_old">Update_old</a>
       <br />
       <a class="link" href="/view">View</a>
       <br />
-      <a class="link" href="/">Refresh</a>
+      <a class="link"  onclick="confirmRefresh();">Refresh</a>
     </div>
+    <script type="text/javascript" src="static/refreshPlex.js"></script>
   </body>
 </html>
